@@ -20,7 +20,7 @@ class Talks extends Component {
   }
   
   componentDidMount() {
-    this.props.initTalks();
+    this.props.getTalks();
   }
   
   componentWillReceiveProps(nextProps) {
@@ -29,9 +29,18 @@ class Talks extends Component {
     });
   }
   
+  goToTalk(item) {
+    this.props.navigator.push({
+      id: 'talk',
+      index: 2,
+      title: item.title,
+      item: item
+    });
+  }
+  
   renderItem(item) {
     return (
-      <TouchableHighlight onPress={this.props.onPress}>
+      <TouchableHighlight onPress={() => this.goToTalk(item)}>
         <View style={styles.li} >
           <Text style={styles.liText}>{item.title}</Text>
         </View>
@@ -57,7 +66,7 @@ class Talks extends Component {
 }
 
 Talks.propTypes = {
-  initTalks: React.PropTypes.func.isRequired
+  getTalks: React.PropTypes.func.isRequired
 };
 
 var styles = StyleSheet.create({

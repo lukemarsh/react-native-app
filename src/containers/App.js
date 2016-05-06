@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { initTalks, addTalk } from '../talks/actions';
+import { getTalks, addTalk } from '../talks/actions';
 import Talks from '../talks/components/index';
 import AddTalk from '../talks/components/addTalk';
 
@@ -30,7 +30,11 @@ const NavigationBarRouteMapper = {
     );
   },
 
-  RightButton(route, navigator, index, navState) {
+  RightButton(route, navigator) {
+    if (route.id !== 'talks') {
+      return null;
+    }
+    
     return (
       <TouchableOpacity
         onPress={() => navigator.push({
@@ -61,9 +65,10 @@ class App extends Component {
         return (
           <View style={styles.scene}>
             <Talks
-            initTalks={this.props.initTalks}
+            getTalks={this.props.getTalks}
             talks={this.props.talks.talks}
             isLoading={this.props.talks.loading}
+            navigator={navigator}
             />
           </View>
         );
@@ -74,6 +79,12 @@ class App extends Component {
             addTalk={this.props.addTalk}
             navigator={navigator}
             />
+          </View>
+        );
+      case 'talk':
+        return (
+          <View style={styles.scene}>
+            <Text>Talk</Text>
           </View>
         );
     }
@@ -113,7 +124,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return bindActionCreators({
-    initTalks,
+    getTalks,
     addTalk
   }, dispatch);
 };

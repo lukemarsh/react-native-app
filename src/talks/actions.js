@@ -8,12 +8,12 @@ export const TALKS_LOADING = 'TALKS_LOADING';
 export const talksReceived = (talks) => ({type: TALKS_RECEIVED, talks});
 export const talksLoading = () => ({type: TALKS_LOADING});
 
-export const initTalks = () => (dispatch) => {
+export const getTalks = () => (dispatch) => {
   dispatch(talksLoading());
   let talks = [];
   talksRef.on('value', (snap) => {
     snap.forEach((child) => {
-      talks.push({
+      talks.unshift({
         title: child.val().owner
       });
     });
@@ -21,6 +21,7 @@ export const initTalks = () => (dispatch) => {
   });
 };
 
-export const addTalk = (data) => () => {
+export const addTalk = (data) => (dispatch) => {
   talksRef.push(data);
+  dispatch(getTalks());
 };

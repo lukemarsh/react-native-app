@@ -18,7 +18,11 @@ class AddTalk extends Component {
     this.props.addTalk({
       owner: this.state.text
     });
-    this.props.navigator.pop();
+    this.props.navigator.push({
+      id: 'talk',
+      index: 2,
+      title: this.state.text
+    });
   }
   
   render() {
