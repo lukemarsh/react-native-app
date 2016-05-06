@@ -1,0 +1,4 @@
+target 'TalksApp' do
+#  pod "HockeySDK"
+ pod "SPXLayout"
+end

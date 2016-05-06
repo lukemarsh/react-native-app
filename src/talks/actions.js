@@ -14,7 +14,8 @@ export const getTalks = () => (dispatch) => {
   talksRef.on('value', (snap) => {
     snap.forEach((child) => {
       talks.unshift({
-        title: child.val().owner
+        title: child.val().owner,
+        _key: child.key()
       });
     });
     dispatch(talksReceived(talks));
@@ -24,4 +25,8 @@ export const getTalks = () => (dispatch) => {
 export const addTalk = (data) => (dispatch) => {
   talksRef.push(data);
   dispatch(getTalks());
+};
+
+export const getTalkByKey = (key) => (dispatch) => {
+  console.log(talksRef.child(key));
 };

@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		332F4F2D50F2F175B3F8C4CFE10B38D7 /* SPXLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2D44BD8826CFF1D7B5E1BE77132ACA /* SPXLayout.m */; };
+		47F7A093B2971048CD52EF5AEB505EA0 /* SPXLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 702D38373782D8171808C1A2C4ABDC4F /* SPXLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		52681FDD62791A9AA3858700ED860CC6 /* Pods-TalksApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 903F31D796269164AA2DA95742A002D7 /* Pods-TalksApp-dummy.m */; };
+		638623457CBB21EA23EB61E2996127C8 /* SPXLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A765CBEFF440D5B0D827ED19430D360 /* SPXLayout-dummy.m */; };
+		77A74FD205D96C09FEACDEE687D4FCCF /* SPXLayout+CrossPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 53ED15E5207B9592403F7F461D5B72AB /* SPXLayout+CrossPlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78ED879F4C00AB5C0211207C8D2B413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		7B1EDB66858C58F22C9AFD85B6C57C64 /* SPXConstraintDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F0539EEB1D667F7BD6DF0767363D3A /* SPXConstraintDefinition.m */; };
+		A106DE8A3E74EC66DE215FD0A4C34EF8 /* SPXConstraintDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = 136EF800B8098DD0BACB78DF6AEC660D /* SPXConstraintDefinition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4A4D760A3BFBB94B822B92CABEE4BDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		DD05F2CE1AD0EB9EEF6258F809371A0A /* ReplaceMe.m in Sources */ = {isa = PBXBuildFile; fileRef = E37B56EEBF26278EAAC4EBC2FD7D7856 /* ReplaceMe.m */; };
+		E11DEB19B4CACA24606553B64FBE7293 /* SPXLayoutDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E224E5CABF57467D43A11D1ED6996296 /* SPXLayoutDefines.m */; };
+		E7D58AEFFE0E71B51CE74E50B4A8C9F9 /* SPXLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F46B43D39FE87214C7144E2A72D07B2 /* SPXLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5443C172EAF63DA427BB1837C1F3A7E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49A76E7746FE1FE30CD49A9BA674501D;
+			remoteInfo = SPXLayout;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06EB6CA254D9040B3A1468B1C5367F8E /* Pods-TalksApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TalksApp-frameworks.sh"; sourceTree = "<group>"; };
+		0874119C98480D62FB886A168BA7CC1A /* libSPXLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSPXLayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A765CBEFF440D5B0D827ED19430D360 /* SPXLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SPXLayout-dummy.m"; sourceTree = "<group>"; };
+		0FF957788FC6C5DFFFD71EDAAC3647A8 /* libPods-TalksApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TalksApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		136EF800B8098DD0BACB78DF6AEC660D /* SPXConstraintDefinition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPXConstraintDefinition.h; path = Pod/Classes/SPXConstraintDefinition.h; sourceTree = "<group>"; };
+		24F0539EEB1D667F7BD6DF0767363D3A /* SPXConstraintDefinition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPXConstraintDefinition.m; path = Pod/Classes/SPXConstraintDefinition.m; sourceTree = "<group>"; };
+		38255E4009E4FFA375C31D10D721ED53 /* Pods-TalksApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TalksApp.debug.xcconfig"; sourceTree = "<group>"; };
+		3845FD3744767693145B7906FC885B6D /* Pods-TalksApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TalksApp.release.xcconfig"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		53ED15E5207B9592403F7F461D5B72AB /* SPXLayout+CrossPlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SPXLayout+CrossPlatform.h"; path = "Pod/Classes/SPXLayout+CrossPlatform.h"; sourceTree = "<group>"; };
+		5F46B43D39FE87214C7144E2A72D07B2 /* SPXLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPXLayout.h; path = Pod/Classes/SPXLayout.h; sourceTree = "<group>"; };
+		60085BEC88853E8A81DA3AA510A987D5 /* SPXLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SPXLayout-prefix.pch"; sourceTree = "<group>"; };
+		702D38373782D8171808C1A2C4ABDC4F /* SPXLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPXLayoutDefines.h; path = Pod/Classes/SPXLayoutDefines.h; sourceTree = "<group>"; };
+		7FE17126EB504388BBE4603F48E11079 /* SPXLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SPXLayout.xcconfig; sourceTree = "<group>"; };
+		903F31D796269164AA2DA95742A002D7 /* Pods-TalksApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TalksApp-dummy.m"; sourceTree = "<group>"; };
+		A04EBC19109D768887C497E91C134D02 /* Pods-TalksApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TalksApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		CF2D44BD8826CFF1D7B5E1BE77132ACA /* SPXLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPXLayout.m; path = Pod/Classes/SPXLayout.m; sourceTree = "<group>"; };
+		D585F00CFE1B997C5CFAB4405D7C2D94 /* Pods-TalksApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TalksApp-resources.sh"; sourceTree = "<group>"; };
+		DF0A585AF4555DB0F38C0785B260B30A /* Pods-TalksApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TalksApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		E224E5CABF57467D43A11D1ED6996296 /* SPXLayoutDefines.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPXLayoutDefines.m; path = Pod/Classes/SPXLayoutDefines.m; sourceTree = "<group>"; };
+		E37B56EEBF26278EAAC4EBC2FD7D7856 /* ReplaceMe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReplaceMe.m; path = Pod/Classes/ReplaceMe.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		39D8EBE11FC46D75573D46BF19B7137D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78ED879F4C00AB5C0211207C8D2B413B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00192B677411B0FF5D6B47644F16833 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4A4D760A3BFBB94B822B92CABEE4BDC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0261773CD4A736CA5702C62C7EEBF322 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7FE17126EB504388BBE4603F48E11079 /* SPXLayout.xcconfig */,
+				0A765CBEFF440D5B0D827ED19430D360 /* SPXLayout-dummy.m */,
+				60085BEC88853E8A81DA3AA510A987D5 /* SPXLayout-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SPXLayout";
+			sourceTree = "<group>";
+		};
+		04C5B8F2EC69C2958FF24A6B3FA642B4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				91C1CA03ACE259A9CCF2E83477070AD8 /* SPXLayout */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		14904638CC3790663C6E6F397C9DC97F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D0615F2D844C16F2370F2720F57D28C4 /* Pods-TalksApp */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				04C5B8F2EC69C2958FF24A6B3FA642B4 /* Pods */,
+				E08A4CE90B9B3F1E1995880172E2F68B /* Products */,
+				14904638CC3790663C6E6F397C9DC97F /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		91C1CA03ACE259A9CCF2E83477070AD8 /* SPXLayout */ = {
+			isa = PBXGroup;
+			children = (
+				E37B56EEBF26278EAAC4EBC2FD7D7856 /* ReplaceMe.m */,
+				136EF800B8098DD0BACB78DF6AEC660D /* SPXConstraintDefinition.h */,
+				24F0539EEB1D667F7BD6DF0767363D3A /* SPXConstraintDefinition.m */,
+				5F46B43D39FE87214C7144E2A72D07B2 /* SPXLayout.h */,
+				CF2D44BD8826CFF1D7B5E1BE77132ACA /* SPXLayout.m */,
+				53ED15E5207B9592403F7F461D5B72AB /* SPXLayout+CrossPlatform.h */,
+				702D38373782D8171808C1A2C4ABDC4F /* SPXLayoutDefines.h */,
+				E224E5CABF57467D43A11D1ED6996296 /* SPXLayoutDefines.m */,
+				0261773CD4A736CA5702C62C7EEBF322 /* Support Files */,
+			);
+			path = SPXLayout;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		D0615F2D844C16F2370F2720F57D28C4 /* Pods-TalksApp */ = {
+			isa = PBXGroup;
+			children = (
+				A04EBC19109D768887C497E91C134D02 /* Pods-TalksApp-acknowledgements.markdown */,
+				DF0A585AF4555DB0F38C0785B260B30A /* Pods-TalksApp-acknowledgements.plist */,
+				903F31D796269164AA2DA95742A002D7 /* Pods-TalksApp-dummy.m */,
+				06EB6CA254D9040B3A1468B1C5367F8E /* Pods-TalksApp-frameworks.sh */,
+				D585F00CFE1B997C5CFAB4405D7C2D94 /* Pods-TalksApp-resources.sh */,
+				38255E4009E4FFA375C31D10D721ED53 /* Pods-TalksApp.debug.xcconfig */,
+				3845FD3744767693145B7906FC885B6D /* Pods-TalksApp.release.xcconfig */,
+			);
+			name = "Pods-TalksApp";
+			path = "Target Support Files/Pods-TalksApp";
+			sourceTree = "<group>";
+		};
+		E08A4CE90B9B3F1E1995880172E2F68B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0FF957788FC6C5DFFFD71EDAAC3647A8 /* libPods-TalksApp.a */,
+				0874119C98480D62FB886A168BA7CC1A /* libSPXLayout.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7AEFF84688DE5390F999FDA39C33C644 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A106DE8A3E74EC66DE215FD0A4C34EF8 /* SPXConstraintDefinition.h in Headers */,
+				77A74FD205D96C09FEACDEE687D4FCCF /* SPXLayout+CrossPlatform.h in Headers */,
+				E7D58AEFFE0E71B51CE74E50B4A8C9F9 /* SPXLayout.h in Headers */,
+				47F7A093B2971048CD52EF5AEB505EA0 /* SPXLayoutDefines.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		49A76E7746FE1FE30CD49A9BA674501D /* SPXLayout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A159AEA91071B593A223438ABAE475D /* Build configuration list for PBXNativeTarget "SPXLayout" */;
+			buildPhases = (
+				947F128FC0F2E484FA2BDD5F25DD1DCC /* Sources */,
+				F00192B677411B0FF5D6B47644F16833 /* Frameworks */,
+				7AEFF84688DE5390F999FDA39C33C644 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SPXLayout;
+			productName = SPXLayout;
+			productReference = 0874119C98480D62FB886A168BA7CC1A /* libSPXLayout.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CD540784256A1FD8DD26321DD46696F6 /* Pods-TalksApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04742AD33AA4E5944BC66EB3111BF392 /* Build configuration list for PBXNativeTarget "Pods-TalksApp" */;
+			buildPhases = (
+				58823D0B615ECBAFF5F8CEC5CD387EF0 /* Sources */,
+				39D8EBE11FC46D75573D46BF19B7137D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D0F45C462EE533C5E38B0C60E38E706 /* PBXTargetDependency */,
+			);
+			name = "Pods-TalksApp";
+			productName = "Pods-TalksApp";
+			productReference = 0FF957788FC6C5DFFFD71EDAAC3647A8 /* libPods-TalksApp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = E08A4CE90B9B3F1E1995880172E2F68B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD540784256A1FD8DD26321DD46696F6 /* Pods-TalksApp */,
+				49A76E7746FE1FE30CD49A9BA674501D /* SPXLayout */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58823D0B615ECBAFF5F8CEC5CD387EF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52681FDD62791A9AA3858700ED860CC6 /* Pods-TalksApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		947F128FC0F2E484FA2BDD5F25DD1DCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD05F2CE1AD0EB9EEF6258F809371A0A /* ReplaceMe.m in Sources */,
+				7B1EDB66858C58F22C9AFD85B6C57C64 /* SPXConstraintDefinition.m in Sources */,
+				638623457CBB21EA23EB61E2996127C8 /* SPXLayout-dummy.m in Sources */,
+				332F4F2D50F2F175B3F8C4CFE10B38D7 /* SPXLayout.m in Sources */,
+				E11DEB19B4CACA24606553B64FBE7293 /* SPXLayoutDefines.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0D0F45C462EE533C5E38B0C60E38E706 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SPXLayout;
+			target = 49A76E7746FE1FE30CD49A9BA674501D /* SPXLayout */;
+			targetProxy = 5443C172EAF63DA427BB1837C1F3A7E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		052A17875CB827423D627183396CEB60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1FAF320E18ACA4DFEAAB7CD699D1B269 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FE17126EB504388BBE4603F48E11079 /* SPXLayout.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SPXLayout/SPXLayout-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		AF3B246C2B0BB01B998F449E7E9F0495 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FE17126EB504388BBE4603F48E11079 /* SPXLayout.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SPXLayout/SPXLayout-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B37F0F91F85060E28F1DAAB522DC7EC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		D22E05E83EE295124E7577779C8C852E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3845FD3744767693145B7906FC885B6D /* Pods-TalksApp.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D7BA7061C0DC9BA74B6D4FB58D4C4094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38255E4009E4FFA375C31D10D721ED53 /* Pods-TalksApp.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04742AD33AA4E5944BC66EB3111BF392 /* Build configuration list for PBXNativeTarget "Pods-TalksApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7BA7061C0DC9BA74B6D4FB58D4C4094 /* Debug */,
+				D22E05E83EE295124E7577779C8C852E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B37F0F91F85060E28F1DAAB522DC7EC1 /* Debug */,
+				052A17875CB827423D627183396CEB60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A159AEA91071B593A223438ABAE475D /* Build configuration list for PBXNativeTarget "SPXLayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF3B246C2B0BB01B998F449E7E9F0495 /* Debug */,
+				1FAF320E18ACA4DFEAAB7CD699D1B269 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getTalks, addTalk } from '../talks/actions';
+import { getTalks, addTalk, getTalkByKey } from '../talks/actions';
 import Talks from '../talks/components/index';
 import AddTalk from '../talks/components/addTalk';
+import Talk from '../talks/components/talk';
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index) {
@@ -84,7 +85,9 @@ class App extends Component {
       case 'talk':
         return (
           <View style={styles.scene}>
-            <Text>Talk</Text>
+            <Talk
+            getTalkByKey={this.props.getTalkByKey}
+            />
           </View>
         );
     }
@@ -125,6 +128,7 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
   return bindActionCreators({
     getTalks,
+    getTalkByKey,
     addTalk
   }, dispatch);
 };

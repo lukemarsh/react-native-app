@@ -33,8 +33,7 @@ class Talks extends Component {
     this.props.navigator.push({
       id: 'talk',
       index: 2,
-      title: item.title,
-      item: item
+      title: item.title
     });
   }
   
