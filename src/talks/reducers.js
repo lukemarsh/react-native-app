@@ -6,8 +6,7 @@ import {
 
 const initialState = {
   talks: [],
-  loading: false,
-  talk: {}
+  loading: false
 };
 
 export default function(state = initialState, action = {}) {
