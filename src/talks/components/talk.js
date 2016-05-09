@@ -3,52 +3,49 @@ import {
   View,
   Text,
   StyleSheet,
-  ActivityIndicatorIOS,
-  TouchableHighlight,
-  Component,
-  ListView
+  Component
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getTalkByKey } from '../actions';
 
 class Talk extends Component {
-  constructor(props) {
-    super(props);
+  
+  componentDidMount() {
+    this.props.getTalkByKey(this.props.id);
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>test</Text>
+        <Text>{this.props.talk}</Text>
       </View>
     );
   }
 }
-
-Talk.propTypes = {
-  getTalkByKey: React.PropTypes.func.isRequired
-};
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center'
-  },
-  listview: {
-    flex: 1
-  },
-  li: {
-    backgroundColor: '#fff',
-    borderBottomColor: '#eee',
-    borderColor: 'transparent',
-    borderWidth: 1,
-    paddingLeft: 16,
-    paddingTop: 14,
-    paddingBottom: 16
-  },
-  liText: {
-    color: '#333',
-    fontSize: 16
   }
 });
 
-module.exports = Talk;
+const stateToProps = (state) => {
+  return {
+    talk: state.talk
+  };
+};
+
+const dispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getTalkByKey
+  }, dispatch);
+};
+
+export default connect(stateToProps, dispatchToProps)(Talk);

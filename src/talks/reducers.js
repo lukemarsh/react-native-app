@@ -1,11 +1,13 @@
 import {
   TALKS_RECEIVED,
-  TALKS_LOADING
+  TALKS_LOADING,
+  TALK_RECEIVED
 } from './actions';
 
 const initialState = {
   talks: [],
-  loading: false
+  loading: false,
+  talk: {}
 };
 
 export default function(state = initialState, action = {}) {
@@ -18,6 +20,10 @@ export default function(state = initialState, action = {}) {
       return Object.assign({}, state, {
         talks: action.talks,
         loading: false
+      });
+    case TALK_RECEIVED:
+      return Object.assign({}, state, {
+        talk: action.talk
       });
     default:
       return state;

@@ -7,12 +7,9 @@ import {
   TouchableOpacity,
   Component
 } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getTalks, addTalk, getTalkByKey } from '../talks/actions';
-import Talks from '../talks/components/index';
-import AddTalk from '../talks/components/addTalk';
-import Talk from '../talks/components/talk';
+import Talks from '../talks/components/Talks';
+import AddTalk from '../talks/components/AddTalk';
+import Talk from '../talks/components/Talk';
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index) {
@@ -65,29 +62,19 @@ class App extends Component {
       case 'talks':
         return (
           <View style={styles.scene}>
-            <Talks
-            getTalks={this.props.getTalks}
-            talks={this.props.talks.talks}
-            isLoading={this.props.talks.loading}
-            navigator={navigator}
-            />
+            <Talks navigator={navigator} />
           </View>
         );
       case 'addTalk':
         return (
           <View style={styles.scene}>
-            <AddTalk
-            addTalk={this.props.addTalk}
-            navigator={navigator}
-            />
+            <AddTalk navigator={navigator} />
           </View>
         );
       case 'talk':
         return (
           <View style={styles.scene}>
-            <Talk
-            getTalkByKey={this.props.getTalkByKey}
-            />
+            <Talk id={route.key} />
           </View>
         );
     }
@@ -119,20 +106,6 @@ class App extends Component {
   }
 }
 
-const stateToProps = (state) => {
-  return {
-    talks: state.talks
-  };
-};
-
-const dispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    getTalks,
-    getTalkByKey,
-    addTalk
-  }, dispatch);
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -163,4 +136,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(stateToProps, dispatchToProps)(App)
+module.exports = App;

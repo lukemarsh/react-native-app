@@ -5,6 +5,9 @@ import {
   StyleSheet,
   Component
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addTalk} from '../actions';
 
 class AddTalk extends Component {
   constructor(props) {
@@ -42,10 +45,6 @@ class AddTalk extends Component {
   }
 }
 
-AddTalk.propTypes = {
-  addTalk: React.PropTypes.func.isRequired
-};
-
 var styles = StyleSheet.create({
   container: {
     padding: 20
@@ -58,4 +57,10 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = AddTalk;
+const dispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addTalk
+  }, dispatch);
+};
+
+export default connect(null, dispatchToProps)(AddTalk);

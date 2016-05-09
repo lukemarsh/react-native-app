@@ -8,6 +8,9 @@ import {
   Component,
   ListView
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getTalks} from '../actions';
 
 class Talks extends Component {
   constructor(props) {
@@ -25,7 +28,7 @@ class Talks extends Component {
   
   componentWillReceiveProps(nextProps) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.talks)
+      dataSource: this.state.dataSource.cloneWithRows(nextProps.talks.talks)
     });
   }
   
@@ -33,7 +36,8 @@ class Talks extends Component {
     this.props.navigator.push({
       id: 'talk',
       index: 2,
-      title: item.title
+      title: item.title,
+      key: item._key
     });
   }
   
@@ -50,7 +54,7 @@ class Talks extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.isLoading ?
+        {this.props.talks.loading ?
           <ActivityIndicatorIOS
             color="#111"
             size="large"/>
@@ -63,10 +67,6 @@ class Talks extends Component {
     );
   }
 }
-
-Talks.propTypes = {
-  getTalks: React.PropTypes.func.isRequired
-};
 
 var styles = StyleSheet.create({
   container: {
@@ -92,4 +92,16 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Talks;
+const stateToProps = (state) => {
+  return {
+    talks: state.talks
+  };
+};
+
+const dispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getTalks
+  }, dispatch);
+};
+
+export default connect(stateToProps, dispatchToProps)(Talks);
