@@ -19,7 +19,7 @@ const NavigationBarRouteMapper = {
 
     return (
       <TouchableOpacity
-        onPress={() => navigator.pop()}
+        onPress={() => navigator.popToTop()}
         style={styles.navBarLeftButton}>
         <Text style={[styles.navBarText, styles.navBarButtonText]}>
           Back

@@ -18,7 +18,13 @@ class Talk extends Component {
   }
   
   componentDidMount() {
-    this.props.getTalkByKey(this.props.id);
+    if (this.props.id) {
+      this.props.getTalkByKey(this.props.id);
+    }
+  }
+  
+  getTalk() {
+    return this.props.talk ? this.props.talk : this.state.talk;
   }
   
   componentWillReceiveProps(nextProps) {
@@ -30,7 +36,7 @@ class Talk extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.talk.owner}</Text>
+        <Text>{this.getTalk().owner}</Text>
       </View>
     );
   }

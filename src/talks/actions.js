@@ -24,14 +24,16 @@ export const getTalks = () => (dispatch) => {
   });
 };
 
-export const addTalk = (data) => (dispatch) => {
-  talksRef.push(data);
-  dispatch(getTalks());
-};
-
 export const getTalkByKey = (key) => (dispatch) => {
   talksRef.child(key).on('value', (snap) => {
     const talk = snap.val();
     dispatch(talkReceived(talk));
   });
+};
+
+export const addTalk = (data) => (dispatch) => {
+  const newTalkRef = talksRef.push(data);
+  const talkId = newTalkRef.key();
+  dispatch(getTalkByKey(talkId));
+  dispatch(getTalks());
 };
