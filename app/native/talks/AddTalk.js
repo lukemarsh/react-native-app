@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   TextInput,
-  StyleSheet,
-  Component
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addTalk} from '../actions';
+import { addTalk } from '../../talks/actions';
 
 class AddTalk extends Component {
   constructor(props) {

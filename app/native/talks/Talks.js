@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ActivityIndicatorIOS,
   TouchableHighlight,
-  Component,
   ListView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTalks} from '../actions';
+import { getTalks } from '../../talks/actions';
 
 class Talks extends Component {
   constructor(props) {

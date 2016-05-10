@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   Component
 } from 'react-native';
-import Talks from '../talks/components/Talks';
-import AddTalk from '../talks/components/AddTalk';
-import Talk from '../talks/components/Talk';
+import Talks from '../talks/Talks';
+import AddTalk from '../talks/AddTalk';
+import Talk from '../talks/Talk';
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index) {

@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
-  Component
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTalkByKey } from '../actions';
+import { getTalkByKey } from '../../talks/actions';
 
 class Talk extends Component {
   constructor(props) {
