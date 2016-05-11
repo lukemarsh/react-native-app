@@ -36,7 +36,7 @@ class Talks extends Component {
       id: 'talk',
       index: 2,
       title: item.title,
-      key: item._key
+      key: item.id
     });
   }
   

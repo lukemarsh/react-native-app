@@ -2,34 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addTalk } from '../../talks/actions';
+import { browserHistory } from 'react-router';
 
 class AddTalk extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: ''
-    };
+    this.addTalk = this.addTalk.bind(this);
   }
   
-  addTalk() {
+  addTalk(event) {
+    event.preventDefault();
+    var input = React.findDOMNode(this.refs.text);
+    
     this.props.addTalk({
-      owner: this.state.text
+      owner: input.value
     });
-    // this.props.navigator.push({
-    //   id: 'talk',
-    //   index: 2,
-    //   title: this.state.text
-    // });
+    
+    browserHistory.push('/talk/' + this.props.newTalkId);
   }
   
   render() {
     return (
       <div>
-        <input type="text" />
+        <form onSubmit={this.addTalk}>
+          <input type="text" ref="text" autoFocus />
+        </form>
       </div>
     );
   }
 }
+
+const stateToProps = (state) => {
+  return {
+    newTalkId: state.talks.talk.id
+  };
+};
 
 const dispatchToProps = (dispatch) => {
   return bindActionCreators({
@@ -37,4 +44,4 @@ const dispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-export default connect(null, dispatchToProps)(AddTalk);
+export default connect(stateToProps, dispatchToProps)(AddTalk);

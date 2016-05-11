@@ -5,7 +5,8 @@ import {
   Navigator,
   StyleSheet,
   TouchableOpacity,
-  Component
+  Component,
+  TabBarIOS
 } from 'react-native';
 import Talks from '../talks/Talks';
 import AddTalk from '../talks/AddTalk';
@@ -58,6 +59,7 @@ const NavigationBarRouteMapper = {
 class App extends Component {
   
   renderScene(route, navigator) {
+    console.log(route);
     switch (route.id) {
       case 'talks':
         return (
@@ -83,6 +85,15 @@ class App extends Component {
   configureScene() {
     return Navigator.SceneConfigs.HorizontalSwipeJump;
   }
+  
+  renderTabBar(color: string, pageText: string, num?: number) {
+    return (
+      <View style={[styles.tabContent, {backgroundColor: color}]}>
+        <Text style={styles.tabText}>{pageText}</Text>
+        <Text style={styles.tabText}>{num} re-renders of the {pageText}</Text>
+      </View>
+    )
+  }
 
   render() {
     return (
@@ -101,6 +112,15 @@ class App extends Component {
           style={styles.navBar}
           routeMapper={NavigationBarRouteMapper} />
         } />
+        <TabBarIOS
+        tintColor="white"
+        barTintColor="darkslateblue">
+          <TabBarIOS.Item
+            title="Blue Tab"
+            >
+            {this.renderTabBar('#414A8C', 'Blue Tab')}
+          </TabBarIOS.Item>
+        </TabBarIOS>
       </View>
     );
   }
@@ -133,6 +153,14 @@ const styles = StyleSheet.create({
   scene: {
     flex: 1,
     paddingTop: 63
+  },
+  tabContent: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  tabText: {
+    color: 'white',
+    margin: 50
   }
 });
 
