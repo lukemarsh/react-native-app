@@ -21,9 +21,18 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2F9D5A67E2E8438D9A4273FE /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0D764E7E98E44F9AA4B72C8 /* MaterialIcons.ttf */; };
 		39E719284207AF1FC13D86B7 /* libPods-TalksApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F7FD394154E404FC873010 /* libPods-TalksApp.a */; };
+		596EF0F45A804E038DB28341 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2FE24AD0D3A4AD9ACCB0DCF /* Octicons.ttf */; };
+		717B5698E5054B149A7AF21A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69BB1B4C925246D7816375B4 /* FontAwesome.ttf */; };
+		7ED9B0145B254FF68FC7C304 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3303AB7C39744A7BB77FDF87 /* Zocial.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		875B4436E4DE4699A93FEDFA /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF443C2A826A44708D5F81B0 /* Foundation.ttf */; };
 		A32557B91CDCEB4E0053B9E9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A32557B81CDCEB4E0053B9E9 /* main.jsbundle */; };
+		C5174AA18E504CD3A021931C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64D7B2A3680148EBBFEC81FA /* EvilIcons.ttf */; };
+		D48DF6FD99AF419CA76F3262 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63E93778BD98488388C2238E /* Entypo.ttf */; };
+		EEE428E4860042718FEBC397 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CA6FBC0981F42A281D3BD66 /* Ionicons.ttf */; };
+		FE28E246A34A4005BE8B4ADB /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B951EF2CB2DC4E7294615919 /* libRNVectorIcons.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +113,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		A3A690981CE32BB9006CD354 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 190133FFD61942C988796F67 /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -126,12 +142,22 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TalksApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TalksApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		190133FFD61942C988796F67 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		20DF3C61962B99009ED80278 /* Pods-TalksApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TalksApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TalksApp/Pods-TalksApp.debug.xcconfig"; sourceTree = "<group>"; };
+		3303AB7C39744A7BB77FDF87 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		3CA6FBC0981F42A281D3BD66 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		63E93778BD98488388C2238E /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		64D7B2A3680148EBBFEC81FA /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		69BB1B4C925246D7816375B4 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		92F7FD394154E404FC873010 /* libPods-TalksApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TalksApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32557B81CDCEB4E0053B9E9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		B951EF2CB2DC4E7294615919 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		BF443C2A826A44708D5F81B0 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C69F0ED191346D9812997057 /* Pods-TalksApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TalksApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TalksApp/Pods-TalksApp.release.xcconfig"; sourceTree = "<group>"; };
+		E2FE24AD0D3A4AD9ACCB0DCF /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		F0D764E7E98E44F9AA4B72C8 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +183,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				39E719284207AF1FC13D86B7 /* libPods-TalksApp.a in Frameworks */,
+				FE28E246A34A4005BE8B4ADB /* libRNVectorIcons.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +302,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7C0FF44F9C5641B88FC841ED /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63E93778BD98488388C2238E /* Entypo.ttf */,
+				64D7B2A3680148EBBFEC81FA /* EvilIcons.ttf */,
+				69BB1B4C925246D7816375B4 /* FontAwesome.ttf */,
+				BF443C2A826A44708D5F81B0 /* Foundation.ttf */,
+				3CA6FBC0981F42A281D3BD66 /* Ionicons.ttf */,
+				F0D764E7E98E44F9AA4B72C8 /* MaterialIcons.ttf */,
+				E2FE24AD0D3A4AD9ACCB0DCF /* Octicons.ttf */,
+				3303AB7C39744A7BB77FDF87 /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +330,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				190133FFD61942C988796F67 /* RNVectorIcons.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -309,6 +352,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				9E3077F39823DABE224A3AD2 /* Pods */,
 				0E43B68C90ED69723A9ABF44 /* Frameworks */,
+				7C0FF44F9C5641B88FC841ED /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -330,6 +374,14 @@
 				C69F0ED191346D9812997057 /* Pods-TalksApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A3A6908B1CE32BB9006CD354 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3A690991CE32BB9006CD354 /* libRNVectorIcons.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,7 +432,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -443,6 +495,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = A3A6908B1CE32BB9006CD354 /* Products */;
+					ProjectRef = 190133FFD61942C988796F67 /* RNVectorIcons.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -524,6 +580,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A3A690991CE32BB9006CD354 /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = A3A690981CE32BB9006CD354 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -541,6 +604,14 @@
 				A32557B91CDCEB4E0053B9E9 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D48DF6FD99AF419CA76F3262 /* Entypo.ttf in Resources */,
+				C5174AA18E504CD3A021931C /* EvilIcons.ttf in Resources */,
+				717B5698E5054B149A7AF21A /* FontAwesome.ttf in Resources */,
+				875B4436E4DE4699A93FEDFA /* Foundation.ttf in Resources */,
+				EEE428E4860042718FEBC397 /* Ionicons.ttf in Resources */,
+				2F9D5A67E2E8438D9A4273FE /* MaterialIcons.ttf in Resources */,
+				596EF0F45A804E038DB28341 /* Octicons.ttf in Resources */,
+				7ED9B0145B254FF68FC7C304 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +735,10 @@
 				INFOPLIST_FILE = TalksAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TalksApp.app/TalksApp";
 			};
@@ -681,6 +756,10 @@
 				INFOPLIST_FILE = TalksAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TalksApp.app/TalksApp";
 			};
@@ -696,6 +775,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = TalksApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -713,6 +793,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = TalksApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -758,6 +839,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -798,6 +880,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
