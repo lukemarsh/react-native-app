@@ -11,25 +11,30 @@ export const styles = StyleSheet.create({
   },
   allStylesBorder: {
     borderWidth: 1,
-    borderColor: '#bfd541'
+    borderColor: '#00aa50'
   },
   liMe: {
-    padding: 5,
+    padding: 6,
+    paddingRight: 16,
     alignItems: 'flex-end'
   },
   liYou: {
-    padding: 5,
-    paddingRight: 60,
-    paddingLeft: 90,
+    padding: 6,
+    paddingRight: 50,
+    paddingLeft: 80,
     alignItems: 'flex-start'
   },
   categoryText: {
-    color: '#96be2d',
-    fontSize: 16
+    color: '#00aa50',
+    fontSize: 18
+  },
+  categoryTextClicked: {
+    color: 'white',
+    fontSize: 18
   },
   border: {
     borderWidth: 1,
-    borderColor: '#bfd541',
+    borderColor: '#00aa50',
     alignItems: 'center',
     borderBottomWidth: 0
   },
@@ -37,45 +42,45 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderBottomWidth: 1,
     alignSelf: 'stretch',
-    borderColor: '#bfd541',
+    borderColor: '#00aa50',
     alignItems: 'center'
   },
   liYouText: {
-    backgroundColor: '#bfd541',
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
+    backgroundColor: '#00aa50',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
     borderBottomLeftRadius: 0
   },
   categoryListTitle: {
-    backgroundColor: '#bfd541',
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    backgroundColor: '#00aa50',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0
   },
   text: {
     color: '#fff',
-    fontSize: 14
+    fontSize: 15
   },
   liMeText: {
-    backgroundColor: '#3ec4ed',
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    backgroundColor: '#00ade7',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 15
+    borderBottomLeftRadius: 30
   },
   input: {
     height: 32,

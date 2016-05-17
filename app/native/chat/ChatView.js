@@ -2,44 +2,59 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  ActivityIndicatorIOS,
+  DeviceEventEmitter,
   ListView,
-  TextInput,
-  ScrollView,
-  Dimensions
+  Image,
+  RecyclerViewBackedScrollView,
+  Dimensions,
+  TextInput
 } from 'react-native';
 import { styles } from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchMessage, startSequence, showProductCarousel } from '../../chat/actions';
 import Carousel from './carousel/Carousel';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-class Talks extends Component {
+class ChatView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      text: ''
+      text: '',
+      visibleHeight: 0
     };
   }
   
+  componentWillMount() {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+  }
+
+  keyboardWillShow(e) {
+    let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+    this.setState({visibleHeight: newSize});
+  }
+
+  keyboardWillHide() {
+    this.setState({visibleHeight: Dimensions.get('window').height});
+  }
+
   componentDidMount() {
     this.props.startSequence();
   }
-  
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(nextProps.messages)
     });
   }
-  
+
   selectCategory(text) {
-    this.props.showProductCarousel({text: text, show: false});
+    this.props.showProductCarousel({text: 'select as ' + text, show: false});
   }
-  
+
   renderArray(data) {
     return data.map((item, index) => {
       const categoryName = item['prd:DescriptionList']['prd:Description']['#text'];
@@ -48,13 +63,13 @@ class Talks extends Component {
       );
     });
   }
-  
+
   renderItem(item) {
     const array = item.list || [];
-    
+
     return (
       <View>
-        { item.carousel ?
+        { item.searchType === 'search' ?
           <Carousel items={array} />
         :
           <View style={[item.type === 'mine' ? styles.liMe : styles.liYou]}>
@@ -73,51 +88,39 @@ class Talks extends Component {
       </View>
     );
   }
-  
+
   sendMessage() {
     this.props.fetchMessage({
       text: this.state.text
     });
     this.refs.input.clear();
   }
-  
-  test(newSize) {
-    if (this.props.messages.length && this.refs.list.getMetrics().contentLength > newSize) {
-      this.refs.scroll.scrollTo({y: this.refs.list.getMetrics().contentLength - 1});
-    }
-  }
 
   render() {
+    console.log(this.state.visibleHeight);
+    
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'stretch', paddingBottom: 48}}>
-        <View style={{flex: 11, justifyContent: 'center', alignItems: 'stretch'}}>
-          <ScrollView keyboardDismissMode='interactive' ref="scroll" onContentSizeChange={(newSize) => this.test(newSize)}>
-          {!this.props.messages.length ?
-            <ActivityIndicatorIOS
-              color="#111"
-              size="large"/>
-          : <ListView
+      <View style={{justifyContent: 'flex-end', height: this.state.visibleHeight - 90}}>
+          <ListView
             ref="list"
+            automaticallyAdjustContentInsets={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flex: 1}}
             dataSource={this.state.dataSource}
+            renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
             enableEmptySections
-            renderRow={this.renderItem.bind(this)} /> }
-          </ScrollView>
+            renderRow={this.renderItem.bind(this)} />
+        <View style={{bottom: 0, flex: 0, padding: 8, backgroundColor: '#f7f7f7'}}>
+          <TextInput style={styles.input}
+            autoFocus
+            ref="input"
+            autoCorrect={false}
+            enablesReturnKeyAutomatically
+            returnKeyType='done'
+            onChangeText={(text) => this.setState({text})}
+            onSubmitEditing={() => this.sendMessage()} />
         </View>
-        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'stretch', backgroundColor: '#f7f7f7', flexDirection: 'row'}}>
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <TextInput style={styles.input}
-              autoFocus
-              ref="input"
-              autoCorrect={false}
-              enablesReturnKeyAutomatically
-              returnKeyType='done'
-              onChangeText={(text) => this.setState({text})}
-              onSubmitEditing={() => this.sendMessage()} />
-          </View>
-          <View style={{justifyContent: 'flex-end', paddingRight: 10, alignSelf: 'center'}}>
-            <Icon name="microphone" size={25}></Icon>
-          </View>
-        </View>
+        <Image style={{position: 'absolute', bottom: 66, left: 16}} height={48} width={48} source={require('./../../images/ACE.png')} />
       </View>
     );
   }
@@ -137,4 +140,4 @@ const dispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-export default connect(stateToProps, dispatchToProps)(Talks);
+export default connect(stateToProps, dispatchToProps)(ChatView);

@@ -3,13 +3,20 @@ import {
   View,
   Text,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
 import { styles } from './styles';
 import { globalStyles } from '../../styles/globals';
 import { connect } from 'react-redux';
+import Product from '../Product';
 
 class Carousel extends Component {
+  constructor(props) {
+    super(props);
+
+    this.goToWebView = this.goToWebView.bind(this);
+  }
   
   getPrice(item) {
     const priceArray = item['prd:PricingInformation']['prc:Price'];
@@ -22,6 +29,16 @@ class Carousel extends Component {
     }
     return priceText['#text'];
   };
+  
+  goToWebView(description, partNumber) {
+    this.props.navigator.push({
+      title: description,
+      component: Product,
+      passProps: {
+        partNumber: partNumber
+      }
+    });
+  }
   
   renderArray(items) {
     return items.map((item, index) => {
@@ -41,9 +58,9 @@ class Carousel extends Component {
                 <Text style={globalStyles.bold}>£{price}</Text>
               </View>
             </View>
-            <View style={[styles.borderBottom, styles.centerAlign, styles.padding]}>
-              <Text style={[globalStyles.bold, globalStyles.darkGreen]}>Buy This</Text>
-            </View>
+              <TouchableHighlight style={[styles.borderBottom, styles.centerAlign, styles.padding]} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.goToWebView(description, item['@id'])}>
+                <Text style={[globalStyles.bold, globalStyles.darkGreen]}>Buy This</Text>
+              </TouchableHighlight>
             <View style={[styles.centerAlign, styles.padding]}>
               <Text style={globalStyles.darkGreen}>See More Like This</Text>
             </View>
@@ -54,6 +71,7 @@ class Carousel extends Component {
   }
   
   render() {
+    
     return (
       <ScrollView contentContainerStyle={styles.carousel} style={styles.carouselInner} horizontal={true} snapToAlignment="start" automaticallyAdjustContentInsets={false}>
         {this.renderArray(this.props.items)}
@@ -62,4 +80,4 @@ class Carousel extends Component {
   }
 }
 
-export default connect(null, null)(Carousel);
+export default Carousel;

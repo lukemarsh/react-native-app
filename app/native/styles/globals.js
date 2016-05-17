@@ -4,12 +4,26 @@ import {
 
 export const globalStyles = StyleSheet.create({
   wrapper: {
-    flex: 1
+    flex: 1,
+    paddingTop: 41
   },
   darkGreen: {
-    color: '#96be2d'
+    color: '#00aa50'
   },
   bold: {
     fontWeight: 'bold'
+  },
+  navBar: {
+    backgroundColor: '#f7192e',
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+      width: 0
+    }
+  },
+  navBarLeftButton: {
+    paddingLeft: 10
   }
 });
