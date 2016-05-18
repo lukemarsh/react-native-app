@@ -13,24 +13,26 @@ export const messageReceived = (data) => ({type: MESSAGE_RECEIVED, data});
 export const messageLoading = () => ({type: MESSAGE_LOADING});
 
 export const receiveMessage = (message) => (dispatch) => {
-  dispatch(messageReceived({
-    type: message.type,
-    text: message.text,
-    list: message.list,
-    id: message.id,
-    searchType: message.searchType
-  }));
+  return new Promise((resolve, reject) => {
+    dispatch(messageReceived({
+      type: message.type,
+      text: message.text,
+      list: message.list,
+      id: Math.round(Math.random() * 10000),
+      searchType: message.searchType
+    }));
+    resolve();
+  });
 };
 
 export const fetchMessage = (data) => (dispatch) => {
-  let id = Math.random();
-  
   if (data.show !== false) {
     dispatch(receiveMessage({
       text: data.text,
       type: 'mine'
     }));
   }
+  
   
   dispatch(messageLoading());
   return new Promise((resolve, reject) => {
@@ -45,6 +47,7 @@ export const fetchMessage = (data) => (dispatch) => {
         timezone: 'Europe/London'
       })
       .end((error, response) => {
+        
         resolve();
         const type = response.body.result.parameters;
         const result = response.body.result.fulfillment;
@@ -53,20 +56,31 @@ export const fetchMessage = (data) => (dispatch) => {
           dispatch(receiveMessage({
             list: result.data,
             type: 'theirs',
-            id: id,
             searchType: type.type
           }));
         } else if (result.speech) {
           dispatch(receiveMessage({
             text: result.speech,
-            type: 'theirs',
-            id: id
-          }));
+            type: 'theirs'
+          })).then(() => {
+            if (result.speech.indexOf('really nice to meet you') > -1) {
+              dispatch(fetchMessage({
+                text: 'help',
+                show: false
+              }));
+            }
+            if (result.speech.indexOf('I can definitely help you with') > -1) {
+              dispatch(fetchMessage({
+                text: 'who gift for',
+                show: false
+              }));
+            }
+          });
+          
         } else {
           dispatch(receiveMessage({
             text: 'Sorry I cannot help you with that',
-            type: 'theirs',
-            id: id
+            type: 'theirs'
           }));
         }
       });

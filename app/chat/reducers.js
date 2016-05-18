@@ -5,21 +5,20 @@ import {
 
 const initialState = {
   messages: [],
-  loading: false
+  isTyping: false
 };
 
 export default function(state = initialState, action = {}) {
-  console.log(action);
   switch (action.type) {
     case MESSAGE_LOADING:
       return {
         ...state,
-        loading: true
+        isTyping: true
       };
     case MESSAGE_RECEIVED:
       return {
         ...state,
-        loading: false,
+        isTyping: false,
         messages: [...state.messages, { text: action.data.text, type: action.data.type, searchType: action.data.searchType, list: action.data.list, loading: false, id: action.data.id }]
       };
     default:

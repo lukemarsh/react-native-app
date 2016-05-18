@@ -76,7 +76,7 @@ class App extends Component {
   renderChatView() {
     let isTyping = '';
 
-    if (this.props.loading) {
+    if (this.props.isTyping) {
       isTyping = '...is typing';
     }
     
@@ -108,7 +108,7 @@ class App extends Component {
 
 const stateToProps = (state) => {
   return {
-    loading: state.chat.loading
+    isTyping: state.chat.isTyping
   };
 };
 

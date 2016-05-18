@@ -2,53 +2,301 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  DeviceEventEmitter,
   ListView,
   Image,
-  RecyclerViewBackedScrollView,
+  Platform,
   Dimensions,
-  TextInput
+  TextInput,
+  PixelRatio,
+  Animated
 } from 'react-native';
 import { styles } from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchMessage, startSequence, showProductCarousel } from '../../chat/actions';
 import Carousel from './carousel/Carousel';
+import deepEqual from 'deep-equal';
 
 class ChatView extends Component {
   constructor(props) {
     super(props);
+    
+    this.onFooterLayout = this.onFooterLayout.bind(this);
+    this.renderRow = this.renderRow.bind(this);
+    this.onLayout = this.onLayout.bind(this);
+    this.renderFooter = this.renderFooter.bind(this); // MIGHT NOT NEED THIS
+    this.onChangeVisibleRows = this.onChangeVisibleRows.bind(this);
+    this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
+    this.onKeyboardDidShow = this.onKeyboardDidShow.bind(this);
+    this.onKeyboardWillHide = this.onKeyboardWillHide.bind(this);
+    this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onSend = this.onSend.bind(this);
+    
+    this._firstDisplay = true;
+    this._listHeight = 0;
+    this._footerY = 0;
+    this._scrollToBottomOnNextRender = false;
+    this._scrollToPreviousPosition = false;
+    this._visibleRows = { s1: { } };
+    
+    let textInputHeight = 44;
+    if (!this.props.hideTextInput) {
+      if (this.props.styles.hasOwnProperty('textInputContainer')) {
+        textInputHeight = this.props.styles.textInputContainer.height || textInputHeight;
+      }
+    }
+    
+    this.listViewMaxHeight = this.props.maxHeight - 90 - textInputHeight;
+    
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => {
+        if (r1.status !== r2.status) {
+          return true;
+        }
+        return false;
+      }
+    });
+    
     this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
-      }),
-      text: '',
-      visibleHeight: 0
+      dataSource: ds.cloneWithRows([]),
+      text: props.text,
+      height: new Animated.Value(this.listViewMaxHeight),
+      appearAnim: new Animated.Value(0)
     };
+    
   }
   
   componentWillMount() {
-    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
-    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    this.styles = {
+      container: {
+        flex: 1,
+        backgroundColor: '#fff'
+      },
+      listView: {
+        flex: 1
+      },
+      textInputContainer: {
+        height: 44,
+        borderTopWidth: 1 / PixelRatio.get(),
+        borderColor: '#b2b2b2',
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 10
+      },
+      textInput: {
+        alignSelf: 'center',
+        height: 30,
+        width: 100,
+        backgroundColor: '#FFF',
+        flex: 1,
+        padding: 0,
+        margin: 0,
+        fontSize: 15
+      }
+    };
+    
+    Object.assign(this.styles, this.props.styles);
   }
-
-  keyboardWillShow(e) {
-    let newSize = Dimensions.get('window').height - e.endCoordinates.height;
-    this.setState({visibleHeight: newSize});
-  }
-
-  keyboardWillHide() {
-    this.setState({visibleHeight: Dimensions.get('window').height});
-  }
-
+  
   componentDidMount() {
+    this.scrollResponder = this.refs.list.getScrollResponder();
     this.props.startSequence();
+    
+    if (this.props.messages.length > 0) {
+      this.setMessages(this.props.messages);
+    }
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isTyping !== this.props.isTyping) {
+      if (this.isLastMessageVisible()) {
+        this._scrollToBottomOnNextRender = true;
+      }
+    }
+    
+    if (deepEqual(nextProps.messages, this.props.messages) === false) {
+      let isAppended = null;
+      if (nextProps.messages.length === this.props.messages.length) {
+        // we assume that only a status has been changed
+        if (this.isLastMessageVisible()) {
+          isAppended = true; // will scroll to bottom
+        } else {
+          isAppended = null;
+        }
+      } else if (deepEqual(nextProps.messages[nextProps.messages.length - 1], this.props.messages[this.props.messages.length - 1]) === false) {
+        // we assume the messages were appended
+        isAppended = true;
+      } else {
+        // we assume the messages were prepended
+        isAppended = false;
+      }
+      this.setMessages(nextProps.messages, isAppended);
+    }
+    
+    let textInputHeight = 44;
+    if (nextProps.styles.hasOwnProperty('textInputContainer')) {
+      textInputHeight = nextProps.styles.textInputContainer.height || textInputHeight;
+    }
+    
+    if (nextProps.maxHeight !== this.props.maxHeight) {
+      this.listViewMaxHeight = nextProps.maxHeight;
+      Animated.timing(this.state.height, {
+        toValue: this.listViewMaxHeight,
+        duration: 150
+      }).start();
+    }
+
+    if (nextProps.hideTextInput && !this.props.hideTextInput) {
+      this.listViewMaxHeight += textInputHeight;
+
+      this.setState({
+        height: new Animated.Value(this.listViewMaxHeight)
+      });
+    } else if (!nextProps.hideTextInput && this.props.hideTextInput) {
+      this.listViewMaxHeight -= textInputHeight;
+
+      this.setState({
+        height: new Animated.Value(this.listViewMaxHeight)
+      });
+    }
+  }
+  
+  onSend() {
+    this.props.fetchMessage({
+      text: this.state.text.trim()
+    });
+    this.onChangeText('');
+  }
+  
+  onKeyboardWillHide() {
+    Animated.timing(this.state.height, {
+      toValue: this.listViewMaxHeight,
+      duration: 150
+    }).start();
   }
 
-  componentWillReceiveProps(nextProps) {
+  onKeyboardDidHide(e) {
+    if (Platform.OS === 'android') {
+      this.onKeyboardWillHide(e);
+    }
+
+    // TODO test in android
+    if (this.props.keyboardShouldPersistTaps === false) {
+      if (this.isLastMessageVisible()) {
+        this.scrollToBottom();
+      }
+    }
+  }
+
+  onKeyboardWillShow(e) {
+    Animated.timing(this.state.height, {
+      toValue: this.listViewMaxHeight - e.endCoordinates.height,
+      duration: 200
+    }).start();
+  }
+
+  onKeyboardDidShow(e) {
+    if (Platform.OS === 'android') {
+      this.onKeyboardWillShow(e);
+    }
+
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, (Platform.OS === 'android' ? 200 : 100));
+  }
+  
+  onLayout(event) {
+    const layout = event.nativeEvent.layout;
+    this._listHeight = layout.height;
+
+    if (this._firstDisplay === true) {
+      requestAnimationFrame(() => {
+        this._firstDisplay = false;
+        this.scrollToBottom(false);
+      });
+    }
+  }
+  
+  onFooterLayout(event) {
+    const layout = event.nativeEvent.layout;
+    const oldFooterY = this._footerY;
+    this._footerY = layout.y;
+
+    if (this._scrollToBottomOnNextRender === true) {
+      this._scrollToBottomOnNextRender = false;
+      this.scrollToBottom();
+    }
+
+    if (this._scrollToPreviousPosition === true) {
+      this._scrollToPreviousPosition = false;
+      this.scrollResponder.scrollTo({
+        y: this._footerY - oldFooterY,
+        x: 0,
+        animated: false
+      });
+    }
+  }
+  
+  onChangeVisibleRows(visibleRows) {
+    this._visibleRows = visibleRows;
+  }
+  
+  onChangeText(text) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.messages)
+      text
     });
+  }
+  
+  getLastMessageid() {
+    if (this.props.messages.length > 0) {
+      return this.props.messages[this.props.messages.length - 1].id;
+    }
+    return null;
+  }
+  
+  setMessages(messages, isAppended = null) {
+
+    const rows = {};
+    const identities = [];
+    for (let i = 0; i < messages.length; i++) {
+      if (typeof messages[i].id === 'undefined') {
+        console.warn('messages[' + i + '].id is missing');
+      }
+      rows[messages[i].id] = Object.assign({}, messages[i]);
+      identities.push(messages[i].id);
+    }
+
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(rows, identities)
+    });
+    
+
+    if (isAppended === true) {
+      this._scrollToBottomOnNextRender = true;
+    } else if (isAppended === false) {
+      this._scrollToPreviousPosition = true;
+    }
+  }
+  
+  isLastMessageVisible() {
+    return !!this._visibleRows.s1[this.getLastMessageid()];
+  }
+  
+  scrollToBottom(animated = null) {
+    if (this._listHeight && this._footerY && this._footerY > this._listHeight) {
+      
+      let scrollDistance = this._listHeight - this._footerY;
+      if (this.props.isTyping) {
+        scrollDistance -= 44;
+      }
+
+      this.scrollResponder.scrollTo({
+        y: -scrollDistance,
+        x: 0,
+        animated: typeof animated === 'boolean' ? animated : this.props.scrollAnimated
+      });
+    }
   }
 
   selectCategory(text) {
@@ -63,18 +311,39 @@ class ChatView extends Component {
       );
     });
   }
+  
+  renderisTyping() {
+    if (this.props.isTyping) {
+      return (
+        <View style={styles.liYou}>
+          <View style={styles.liYouText}><Text style={styles.text}>o</Text></View>
+        </View>
+      );
+    }
+    return null;
+  }
+  
+  renderFooter() {
+    return (
+      <View
+        onLayout={this.onFooterLayout}
+      >
+        {this.renderisTyping()}
+      </View>
+    );
+  }
 
-  renderItem(item) {
-    const array = item.list || [];
+  renderRow(rowData = {}) {
+    const array = rowData.list || [];
 
     return (
       <View>
-        { item.searchType === 'search' ?
+        { rowData.searchType === 'search' ?
           <Carousel items={array} />
         :
-          <View style={[item.type === 'mine' ? styles.liMe : styles.liYou]}>
-            { item.text ?
-              <View style={item.type === 'mine' ? styles.liMeText : styles.liYouText}><Text style={styles.text}>{item.text}</Text></View>
+          <View style={[rowData.type === 'mine' ? styles.liMe : styles.liYou]}>
+            { rowData.text ?
+              <View style={rowData.type === 'mine' ? styles.liMeText : styles.liYouText}><Text style={styles.text}>{rowData.text}</Text></View>
             :
               <View>
                 <View style={styles.categoryListTitle}><Text style={styles.text}>Nice. So what kind of gift are you after?</Text></View>
@@ -89,37 +358,53 @@ class ChatView extends Component {
     );
   }
 
-  sendMessage() {
-    this.props.fetchMessage({
-      text: this.state.text
-    });
-    this.refs.input.clear();
-  }
-
   render() {
-    console.log(this.state.visibleHeight);
     
     return (
-      <View style={{justifyContent: 'flex-end', height: this.state.visibleHeight - 90}}>
+      <View style={this.styles.container}>
+        <Animated.View
+          style={{height: this.state.height, justifyContent: 'flex-end'}}>
           <ListView
             ref="list"
-            automaticallyAdjustContentInsets={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{flex: 1}}
+            style={this.styles.listView}
+            initialListSize={this.props.messages.length}
+            pageSize={this.props.messages.length}
             dataSource={this.state.dataSource}
-            renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
-            enableEmptySections
-            renderRow={this.renderItem.bind(this)} />
-        <View style={{bottom: 0, flex: 0, padding: 8, backgroundColor: '#f7f7f7'}}>
-          <TextInput style={styles.input}
-            autoFocus
-            ref="input"
-            autoCorrect={false}
-            enablesReturnKeyAutomatically
-            returnKeyType='done'
-            onChangeText={(text) => this.setState({text})}
-            onSubmitEditing={() => this.sendMessage()} />
-        </View>
+            onLayout={this.onLayout}
+            automaticallyAdjustContentInsets={false}
+            onChangeVisibleRows={this.onChangeVisibleRows}
+            enableEmptySections={true}
+            renderFooter={this.renderFooter}
+            // not supported in Android - to fix this issue in Android, onKeyboardWillShow is called inside onKeyboardDidShow
+            onKeyboardWillShow={this.onKeyboardWillShow}
+            onKeyboardDidShow={this.onKeyboardDidShow}
+            // not supported in Android - to fix this issue in Android, onKeyboardWillHide is called inside onKeyboardDidHide
+            onKeyboardWillHide={this.onKeyboardWillHide}
+            onKeyboardDidHide={this.onKeyboardDidHide}
+            // @issue keyboardShouldPersistTaps={false} + textInput focused = 2 taps are needed to trigger the ParsedText links
+            keyboardShouldPersistTaps={this.props.keyboardShouldPersistTaps}
+            keyboardDismissMode={this.props.keyboardDismissMode}
+            renderRow={this.renderRow}
+            {...this.props} />
+        </Animated.View>
+        { this.props.hideTextInput === false ?
+          <View style={ this.styles.textInputContainer }>
+            <TextInput
+              style={this.styles.textInput}
+              placeholder={this.props.placeholder}
+              placeHolderTextcolor={this.props.placeHolderTextcolor}
+              onChangeText={this.onChangeText}
+              value={this.state.text}
+              autoFocus={this.props.autoFocus}
+              returnKeyType={this.props.submitOnReturn ? 'send' : 'default'}
+              onSubmitEditing={this.props.submitOnReturn ? this.onSend : () => {}}
+              autoCorrect={this.props.autoCorrect}
+              enablesReturnKeyAutomatically={true}
+              
+              blurOnSubmit={this.props.blurOnSubmit}
+            />
+          </View>
+        : null }
         <Image style={{position: 'absolute', bottom: 66, left: 16}} height={48} width={48} source={require('./../../images/ACE.png')} />
       </View>
     );
@@ -128,7 +413,8 @@ class ChatView extends Component {
 
 const stateToProps = (state) => {
   return {
-    messages: state.chat.messages
+    messages: state.chat.messages,
+    isTyping: state.chat.isTyping
   };
 };
 
@@ -138,6 +424,21 @@ const dispatchToProps = (dispatch) => {
     startSequence,
     showProductCarousel
   }, dispatch);
+};
+
+ChatView.defaultProps = {
+  maxHeight: Dimensions.get('window').height,
+  keyboardDismissMode: 'interactive',
+  keyboardShouldPersistTaps: false,
+  scrollAnimated: true,
+  hideTextInput: false,
+  styles: {},
+  text: '',
+  submitOnReturn: true,
+  placeholder: 'Type a message...',
+  placeHolderTextcolor: '#ccc',
+  autoFocus: true,
+  autoCorrect: true
 };
 
 export default connect(stateToProps, dispatchToProps)(ChatView);

@@ -5,7 +5,7 @@ import {
 export const globalStyles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: 41
+    paddingTop: 62
   },
   darkGreen: {
     color: '#00aa50'
