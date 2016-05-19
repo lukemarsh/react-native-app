@@ -67,6 +67,18 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0
   },
+  categoryListMore: {
+    borderTopWidth: 0,
+    borderWidth: 1,
+    padding: 15,
+    borderBottomRightRadius: 30,
+    borderColor: '#00aa50'
+  },
+  categoryListMoreText: {
+    textAlign: 'center',
+    color: '#00aa50',
+    fontSize: 18
+  },
   text: {
     color: '#fff',
     fontSize: 15

@@ -1,12 +1,10 @@
 import {
-  StyleSheet,
-  Dimensions
+  StyleSheet
 } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
   carousel: {
+    padding: 6,
     paddingLeft: 80
   },
   images: {

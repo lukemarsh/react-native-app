@@ -8,6 +8,7 @@ import {
   Dimensions,
   TextInput,
   PixelRatio,
+  TouchableHighlight,
   Animated
 } from 'react-native';
 import { styles } from './styles';
@@ -16,6 +17,7 @@ import { bindActionCreators } from 'redux';
 import { fetchMessage, startSequence, showProductCarousel } from '../../chat/actions';
 import Carousel from './carousel/Carousel';
 import deepEqual from 'deep-equal';
+import Spinner from 'react-native-spinkit';
 
 class ChatView extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class ChatView extends Component {
       }
     }
     
-    this.listViewMaxHeight = this.props.maxHeight - 90 - textInputHeight;
+    this.listViewMaxHeight = this.props.maxHeight - 112 - textInputHeight;
     
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => {
@@ -172,7 +174,7 @@ class ChatView extends Component {
   onKeyboardWillHide() {
     Animated.timing(this.state.height, {
       toValue: this.listViewMaxHeight,
-      duration: 150
+      duration: 0
     }).start();
   }
 
@@ -191,8 +193,8 @@ class ChatView extends Component {
 
   onKeyboardWillShow(e) {
     Animated.timing(this.state.height, {
-      toValue: this.listViewMaxHeight - e.endCoordinates.height,
-      duration: 200
+      toValue: this.listViewMaxHeight - e.endCoordinates.height - (e.endCoordinates.height > 0 ? -50 : 0),
+      duration: 0
     }).start();
   }
 
@@ -201,21 +203,17 @@ class ChatView extends Component {
       this.onKeyboardWillShow(e);
     }
 
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, (Platform.OS === 'android' ? 200 : 100));
+    this.scrollToBottom();
   }
   
   onLayout(event) {
     const layout = event.nativeEvent.layout;
     this._listHeight = layout.height;
 
-    if (this._firstDisplay === true) {
-      requestAnimationFrame(() => {
-        this._firstDisplay = false;
-        this.scrollToBottom(false);
-      });
-    }
+    requestAnimationFrame(() => {
+      this._firstDisplay = false;
+      this.scrollToBottom(false);
+    });
   }
   
   onFooterLayout(event) {
@@ -307,7 +305,9 @@ class ChatView extends Component {
     return data.map((item, index) => {
       const categoryName = item['prd:DescriptionList']['prd:Description']['#text'];
       return (
-        <View style={styles.category} key={index}><Text style={styles.categoryText} onPress={() => this.selectCategory(categoryName)}>{categoryName}</Text></View>
+        <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName)}>
+          <Text style={styles.categoryText}>{categoryName}</Text>
+        </TouchableHighlight>
       );
     });
   }
@@ -316,7 +316,9 @@ class ChatView extends Component {
     if (this.props.isTyping) {
       return (
         <View style={styles.liYou}>
-          <View style={styles.liYouText}><Text style={styles.text}>o</Text></View>
+          <View style={styles.liYouText}>
+            <Spinner isVisible={true} size={23} type='ThreeBounce' color='#FFFFFF' />
+          </View>
         </View>
       );
     }
@@ -339,7 +341,7 @@ class ChatView extends Component {
     return (
       <View>
         { rowData.searchType === 'search' ?
-          <Carousel items={array} />
+          <Carousel navigator={this.props.navigator} items={array} />
         :
           <View style={[rowData.type === 'mine' ? styles.liMe : styles.liYou]}>
             { rowData.text ?
@@ -350,6 +352,9 @@ class ChatView extends Component {
                 <View style={styles.border}>
                   {this.renderArray(array)}
                 </View>
+                <TouchableHighlight style={styles.categoryListMore} underlayColor='#fff' activeOpacity={0.4}>
+                  <Text style={styles.categoryListMoreText}>See more</Text>
+                </TouchableHighlight>
               </View>
             }
           </View>
@@ -378,6 +383,7 @@ class ChatView extends Component {
             // not supported in Android - to fix this issue in Android, onKeyboardWillShow is called inside onKeyboardDidShow
             onKeyboardWillShow={this.onKeyboardWillShow}
             onKeyboardDidShow={this.onKeyboardDidShow}
+            
             // not supported in Android - to fix this issue in Android, onKeyboardWillHide is called inside onKeyboardDidHide
             onKeyboardWillHide={this.onKeyboardWillHide}
             onKeyboardDidHide={this.onKeyboardDidHide}
@@ -386,6 +392,7 @@ class ChatView extends Component {
             keyboardDismissMode={this.props.keyboardDismissMode}
             renderRow={this.renderRow}
             {...this.props} />
+            <Image style={{position: 'absolute', bottom: 16, left: 16}} height={48} width={48} source={require('./../../images/ACE.png')} />
         </Animated.View>
         { this.props.hideTextInput === false ?
           <View style={ this.styles.textInputContainer }>
@@ -400,12 +407,10 @@ class ChatView extends Component {
               onSubmitEditing={this.props.submitOnReturn ? this.onSend : () => {}}
               autoCorrect={this.props.autoCorrect}
               enablesReturnKeyAutomatically={true}
-              
               blurOnSubmit={this.props.blurOnSubmit}
             />
           </View>
         : null }
-        <Image style={{position: 'absolute', bottom: 66, left: 16}} height={48} width={48} source={require('./../../images/ACE.png')} />
       </View>
     );
   }
@@ -438,7 +443,8 @@ ChatView.defaultProps = {
   placeholder: 'Type a message...',
   placeHolderTextcolor: '#ccc',
   autoFocus: true,
-  autoCorrect: true
+  autoCorrect: true,
+  blurOnSubmit: false
 };
 
 export default connect(stateToProps, dispatchToProps)(ChatView);

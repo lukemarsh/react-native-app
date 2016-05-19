@@ -129,6 +129,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-vector-icons')
     compile project(':react-native-hockeyapp')
     compile fileTree(dir: "libs", include: ["*.jar"])

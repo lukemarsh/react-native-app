@@ -33,9 +33,17 @@ export const fetchMessage = (data) => (dispatch) => {
     }));
   }
   
-  
   dispatch(messageLoading());
   return new Promise((resolve, reject) => {
+    if (data.text.indexOf('items that match your product') > -1) {
+      dispatch(receiveMessage({
+        text: 'Cool. Here`s some ' + data.data + ' items that match your product',
+        type: 'theirs'
+      }));
+      resolve();
+      return;
+    }
+    
     request
       .post(baseUrl + 'query/?v=26000')
       .set('Content-Type', contentType)
@@ -90,10 +98,16 @@ export const fetchMessage = (data) => (dispatch) => {
 
 export const showProductCarousel = (data) => (dispatch) => {
   dispatch(fetchMessage({
-    text: data.text,
-    carousel: true,
+    data: data.text.replace('select as ', ''),
+    text: 'items that match your product',
     show: false
-  }));
+  })).then(() => {
+    dispatch(fetchMessage({
+      text: data.text,
+      carousel: true,
+      show: false
+    }));
+  });
 };
 
 export const startSequence = () => (dispatch) => {
