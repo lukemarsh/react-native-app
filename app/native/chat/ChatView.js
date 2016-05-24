@@ -429,7 +429,7 @@ class ChatView extends Component {
             pageSize={this.props.messages.length}
             dataSource={this.state.dataSource}
             onLayout={this.onLayout}
-            automaticallyAdjustContentInsets={true}
+            automaticallyAdjustContentInsets={false}
             onChangeVisibleRows={this.onChangeVisibleRows}
             enableEmptySections={true}
             renderFooter={this.renderFooter}
