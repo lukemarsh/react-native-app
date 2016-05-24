@@ -2,7 +2,7 @@ import request from 'superagent';
 delete GLOBAL.XMLHttpRequest;
 
 const baseUrl = 'https://api.api.ai/v1/';
-const accessToken = '2cb3b60aab03403e99a619ba0e494e45';
+const accessToken = '848e6554193a4aa6b88bbb7689c7be58';
 const contentType = 'application/json; charset=utf-8';
 const authHeader = 'Bearer ' + accessToken;
 
@@ -19,7 +19,9 @@ export const receiveMessage = (message) => (dispatch) => {
       text: message.text,
       list: message.list,
       id: Math.round(Math.random() * 10000),
-      searchType: message.searchType
+      searchType: message.searchType,
+      options: message.options,
+      hideKeyboard: message.hideKeyboard
     }));
     resolve();
   });
@@ -35,15 +37,6 @@ export const fetchMessage = (data) => (dispatch) => {
   
   dispatch(messageLoading());
   return new Promise((resolve, reject) => {
-    if (data.text.indexOf('items that match your product') > -1) {
-      dispatch(receiveMessage({
-        text: 'Cool. Here`s some ' + data.data + ' items that match your product',
-        type: 'theirs'
-      }));
-      resolve();
-      return;
-    }
-    
     request
       .post(baseUrl + 'query/?v=26000')
       .set('Content-Type', contentType)
@@ -51,7 +44,7 @@ export const fetchMessage = (data) => (dispatch) => {
       .send({
         q: data.text,
         lang: 'en',
-        resetContexts: false,
+        resetContexts: data.resetContexts ? true : false,
         timezone: 'Europe/London'
       })
       .end((error, response) => {
@@ -67,23 +60,24 @@ export const fetchMessage = (data) => (dispatch) => {
             searchType: type.type
           }));
         } else if (result.speech) {
+          let options = [];
+          let hideKeyboard = false;
+          if (response.body.result.action === 'request_gift_options') {
+            options = [
+              'Under £20',
+              'Up to £50',
+              'Less than £50',
+              'Other'
+            ];
+            hideKeyboard = true;
+          }
+          
           dispatch(receiveMessage({
             text: result.speech,
-            type: 'theirs'
-          })).then(() => {
-            if (result.speech.indexOf('really nice to meet you') > -1) {
-              dispatch(fetchMessage({
-                text: 'help',
-                show: false
-              }));
-            }
-            if (result.speech.indexOf('I can definitely help you with') > -1) {
-              dispatch(fetchMessage({
-                text: 'who gift for',
-                show: false
-              }));
-            }
-          });
+            type: 'theirs',
+            options: options,
+            hideKeyboard: hideKeyboard
+          }));
           
         } else {
           dispatch(receiveMessage({
@@ -97,10 +91,9 @@ export const fetchMessage = (data) => (dispatch) => {
 };
 
 export const showProductCarousel = (data) => (dispatch) => {
-  dispatch(fetchMessage({
-    data: data.text.replace('select as ', ''),
-    text: 'items that match your product',
-    show: false
+  dispatch(receiveMessage({
+    text: 'Cool. Here\'s some' + data.text.replace('show me', '') + ' items that match your product',
+    type: 'theirs'
   })).then(() => {
     dispatch(fetchMessage({
       text: data.text,
@@ -112,19 +105,20 @@ export const showProductCarousel = (data) => (dispatch) => {
 
 export const startSequence = () => (dispatch) => {
   dispatch(fetchMessage({
-    text: 'start',
-    show: false
+    text: 'hi',
+    show: false,
+    resetContexts: true
   })).then(() => {
     setTimeout(() => {
       dispatch(fetchMessage({
-        text: 'start next',
+        text: 'What is your name?',
         show: false
       }));
     }, 500);
   }).then(() => {
     setTimeout(() => {
       dispatch(fetchMessage({
-        text: 'start next next',
+        text: 'Ask me what my name is',
         show: false
       }));
     }, 2000);

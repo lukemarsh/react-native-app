@@ -5,7 +5,7 @@ import {
 export const styles = StyleSheet.create({
   carousel: {
     padding: 6,
-    paddingLeft: 80
+    paddingLeft: 31
   },
   images: {
     width: 130,
@@ -13,12 +13,15 @@ export const styles = StyleSheet.create({
   },
   carouselItem: {
     paddingRight: 16,
-    width: 260
+    width: 279
   },
   product: {
     borderWidth: 1,
     borderColor: '#00aa50',
-    borderRadius: 30
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 0
   },
   borderBottom: {
     borderBottomWidth: 1,

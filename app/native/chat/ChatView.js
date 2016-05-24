@@ -34,6 +34,7 @@ class ChatView extends Component {
     this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onSend = this.onSend.bind(this);
+    this.onClickOption = this.onClickOption.bind(this);
     
     this._firstDisplay = true;
     this._listHeight = 0;
@@ -72,8 +73,7 @@ class ChatView extends Component {
   componentWillMount() {
     this.styles = {
       container: {
-        flex: 1,
-        backgroundColor: '#fff'
+        flex: 1
       },
       listView: {
         flex: 1
@@ -111,6 +111,8 @@ class ChatView extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
+    
+    
     if (nextProps.isTyping !== this.props.isTyping) {
       if (this.isLastMessageVisible()) {
         this._scrollToBottomOnNextRender = true;
@@ -137,6 +139,12 @@ class ChatView extends Component {
     }
     
     let textInputHeight = 44;
+    
+    if (nextProps.hideKeyboard) {
+      this.hideKeyboard();
+    }
+    
+    
     if (nextProps.styles.hasOwnProperty('textInputContainer')) {
       textInputHeight = nextProps.styles.textInputContainer.height || textInputHeight;
     }
@@ -162,6 +170,15 @@ class ChatView extends Component {
         height: new Animated.Value(this.listViewMaxHeight)
       });
     }
+    
+  }
+  
+  onClickOption(text) {
+    console.log(text);
+    
+    this.props.fetchMessage({
+      text: text
+    });
   }
   
   onSend() {
@@ -212,7 +229,7 @@ class ChatView extends Component {
 
     requestAnimationFrame(() => {
       this._firstDisplay = false;
-      this.scrollToBottom(false);
+      this.scrollToBottom(true);
     });
   }
   
@@ -254,7 +271,6 @@ class ChatView extends Component {
   }
   
   setMessages(messages, isAppended = null) {
-
     const rows = {};
     const identities = [];
     for (let i = 0; i < messages.length; i++) {
@@ -298,32 +314,53 @@ class ChatView extends Component {
   }
 
   selectCategory(text) {
-    this.props.showProductCarousel({text: 'select as ' + text, show: false});
+    this.props.showProductCarousel({text: 'show me ' + text, show: false});
   }
 
   renderArray(data) {
     return data.map((item, index) => {
-      const categoryName = item['prd:DescriptionList']['prd:Description']['#text'];
-      return (
-        <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName)}>
-          <Text style={styles.categoryText}>{categoryName}</Text>
-        </TouchableHighlight>
-      );
+      if (index < 5) {
+        const categoryName = item['prd:DescriptionList']['prd:Description']['#text'];
+        return (
+          <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName)}>
+            <Text style={styles.categoryText}>{categoryName}</Text>
+          </TouchableHighlight>
+        );
+      }
     });
   }
   
   renderisTyping() {
     if (this.props.isTyping) {
       return (
-        <View style={styles.liYou}>
-          <View style={styles.liYouText}>
-            <Spinner isVisible={true} size={23} type='ThreeBounce' color='#FFFFFF' />
+        <View style={[styles.liYou, { flexDirection: 'row' }]}>
+          <Image style={{position: 'absolute', left: 6, bottom: 6, height: 20, width: 20}} height={20} width={20} source={require('./../../images/ACE.png')} />
+          <View style={[styles.liYouText, { marginLeft: 25 }]}>
+            <Spinner isVisible={true} size={18} type='ThreeBounce' color='#FFFFFF' />
           </View>
         </View>
       );
     }
     return null;
   }
+  
+  renderOptions(data) {
+    
+    let options = data.map((item, index) => {
+      return (
+        <View key={index} style={{padding: 6}}>
+          <View style={[styles.liMeText]}>
+            <Text style={styles.text} onPress={() => this.onClickOption(item)}>{item}</Text>
+          </View>
+        </View>
+      );
+    });
+    return (
+      <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        {options}
+      </View>
+    );
+  };
   
   renderFooter() {
     return (
@@ -334,16 +371,27 @@ class ChatView extends Component {
       </View>
     );
   }
+  
+  hideKeyboard() {
+    this.refs.input.blur();
+    // this.setState({
+    //   height: new Animated.Value(this.listViewMaxHeight + 45)
+    // });
+  }
 
   renderRow(rowData = {}) {
     const array = rowData.list || [];
 
     return (
       <View>
+        { rowData.type === 'theirs' ?
+          <Image style={{position: 'absolute', left: 6, bottom: 6, height: 20, width: 20}} height={20} width={20} source={require('./../../images/ACE.png')} />
+        : null }
+        
         { rowData.searchType === 'search' ?
           <Carousel navigator={this.props.navigator} items={array} />
         :
-          <View style={[rowData.type === 'mine' ? styles.liMe : styles.liYou]}>
+          <View style={[rowData.type === 'mine' ? styles.liMe : styles.liYou, {marginLeft: 25}]}>
             { rowData.text ?
               <View style={rowData.type === 'mine' ? styles.liMeText : styles.liYouText}><Text style={styles.text}>{rowData.text}</Text></View>
             :
@@ -364,6 +412,11 @@ class ChatView extends Component {
   }
 
   render() {
+    let options;
+    
+    if (this.props.options && this.props.options.length) {
+      options = this.renderOptions(this.props.options);
+    }
     
     return (
       <View style={this.styles.container}>
@@ -376,7 +429,7 @@ class ChatView extends Component {
             pageSize={this.props.messages.length}
             dataSource={this.state.dataSource}
             onLayout={this.onLayout}
-            automaticallyAdjustContentInsets={false}
+            automaticallyAdjustContentInsets={true}
             onChangeVisibleRows={this.onChangeVisibleRows}
             enableEmptySections={true}
             renderFooter={this.renderFooter}
@@ -392,19 +445,20 @@ class ChatView extends Component {
             keyboardDismissMode={this.props.keyboardDismissMode}
             renderRow={this.renderRow}
             {...this.props} />
-            <Image style={{position: 'absolute', bottom: 16, left: 16}} height={48} width={48} source={require('./../../images/ACE.png')} />
+            { options }
         </Animated.View>
-        { this.props.hideTextInput === false ?
+        { this.props.hideTextInput === false && this.props.hideKeyboard !== true ?
           <View style={ this.styles.textInputContainer }>
             <TextInput
+              ref='input'
               style={this.styles.textInput}
               placeholder={this.props.placeholder}
               placeHolderTextcolor={this.props.placeHolderTextcolor}
               onChangeText={this.onChangeText}
               value={this.state.text}
               autoFocus={this.props.autoFocus}
-              returnKeyType={this.props.submitOnReturn ? 'send' : 'default'}
-              onSubmitEditing={this.props.submitOnReturn ? this.onSend : () => {}}
+              returnKeyType={this.props.submitOnReturn && !this.props.isTyping ? 'send' : 'default'}
+              onSubmitEditing={this.props.submitOnReturn && !this.props.isTyping ? this.onSend : () => {}}
               autoCorrect={this.props.autoCorrect}
               enablesReturnKeyAutomatically={true}
               blurOnSubmit={this.props.blurOnSubmit}
@@ -419,7 +473,9 @@ class ChatView extends Component {
 const stateToProps = (state) => {
   return {
     messages: state.chat.messages,
-    isTyping: state.chat.isTyping
+    options: state.chat.options,
+    isTyping: state.chat.isTyping,
+    hideKeyboard: state.chat.hideKeyboard
   };
 };
 
@@ -442,7 +498,7 @@ ChatView.defaultProps = {
   submitOnReturn: true,
   placeholder: 'Type a message...',
   placeHolderTextcolor: '#ccc',
-  autoFocus: true,
+  autoFocus: false,
   autoCorrect: true,
   blurOnSubmit: false
 };

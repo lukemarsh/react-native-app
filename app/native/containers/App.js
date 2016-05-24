@@ -56,20 +56,23 @@ class App extends Component {
 
   render() {
     return (
-      <TabBarIOS>
+      <TabBarIOS tintColor="red">
         <TabBarIOS.Item
           icon={{uri: firstTabIcon, scale: 3}}
           selected={true}
+          title={null}
           >
           {this.renderChatView()}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={{uri: secondTabIcon, scale: 3}}
+          title={null}
           >
           {null}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={{uri: thirdTabIcon, scale: 3}}
+          title={null}
           >
           {null}
         </TabBarIOS.Item>

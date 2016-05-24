@@ -20,8 +20,7 @@ export const styles = StyleSheet.create({
   },
   liYou: {
     padding: 6,
-    paddingRight: 50,
-    paddingLeft: 80,
+    paddingRight: 64,
     alignItems: 'flex-start'
   },
   categoryText: {
@@ -51,9 +50,9 @@ export const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 16,
     paddingRight: 16,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 15,
     borderBottomLeftRadius: 0
   },
   categoryListTitle: {
@@ -62,8 +61,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 16,
     paddingRight: 16,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0
   },
@@ -71,7 +70,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 0,
     borderWidth: 1,
     padding: 15,
-    borderBottomRightRadius: 30,
+    borderBottomRightRadius: 15,
     borderColor: '#00aa50'
   },
   categoryListMoreText: {
@@ -89,10 +88,10 @@ export const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 16,
     paddingRight: 16,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 15,
     borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 30
+    borderBottomLeftRadius: 15
   },
   input: {
     height: 32,
