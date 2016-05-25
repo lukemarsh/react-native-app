@@ -2,7 +2,7 @@ import request from 'superagent';
 // delete GLOBAL.XMLHttpRequest;
 
 const baseUrl = 'https://api.api.ai/v1/';
-const accessToken = '848e6554193a4aa6b88bbb7689c7be58';
+const accessToken = '9a5720393c2e47a1b25d05fb333563ce';
 const contentType = 'application/json; charset=utf-8';
 const authHeader = 'Bearer ' + accessToken;
 
@@ -21,7 +21,9 @@ export const receiveMessage = (message) => (dispatch) => {
       id: Math.round(Math.random() * 10000),
       searchType: message.searchType,
       options: message.options,
-      hideKeyboard: message.hideKeyboard
+      hideKeyboard: message.hideKeyboard,
+      minPrice: message.minPrice,
+      maxPrice: message.maxPrice
     }));
     resolve();
   });
@@ -48,28 +50,28 @@ export const fetchMessage = (data) => (dispatch) => {
         timezone: 'Europe/London'
       })
       .end((error, response) => {
-        console.log(response);
         
         resolve();
         const type = response.body.result.parameters;
         const result = response.body.result.fulfillment;
         
         if (result.data) {
-          console.log(response);
           
           dispatch(receiveMessage({
             list: type.type === 'category' ? result.data['sch:Options']['sch:RefinementList']['sch:Refinement']['sch:OptionList']['sch:Option'] : result.data['prd:ProductList']['prd:Product'],
             type: 'theirs',
-            searchType: type.type
+            searchType: type.type,
+            minPrice: type['min-price'],
+            maxPrice: type['max-price']
           }));
         } else if (result.speech) {
           let options = [];
           let hideKeyboard = false;
           if (response.body.result.action === 'request_gift_options') {
             options = [
-              'Under £20',
-              'Up to £50',
-              'Less than £50'
+              'Up to £20',
+              '£20 to £50',
+              '£50 to £100'
             ];
             hideKeyboard = true;
           }
@@ -93,8 +95,17 @@ export const fetchMessage = (data) => (dispatch) => {
 };
 
 export const showProductCarousel = (data) => (dispatch) => {
+  
+  const productStrings = [
+    "Here's what I've been able to find. What do you think?",
+    "Do you think he'll like any of these?",
+    "What do you think of these gift ideas?",
+    "How do you like these gift ideas?"
+  ];
+  const productString = Math.floor(Math.random() * productStrings.length);
+  
   dispatch(receiveMessage({
-    text: 'Cool. Here\'s some' + data.text.replace('show me', '') + ' items that match your product',
+    text: productStrings[productString],
     type: 'theirs'
   })).then(() => {
     dispatch(fetchMessage({

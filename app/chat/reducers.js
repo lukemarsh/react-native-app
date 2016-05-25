@@ -20,7 +20,7 @@ export default function(state = initialState, action = {}) {
       return {
         ...state,
         isTyping: false,
-        messages: [...state.messages, { text: action.data.text, index: 0, type: action.data.type, searchType: action.data.searchType, list: action.data.list, loading: false, id: action.data.id }],
+        messages: [...state.messages, { minPrice: action.data.minPrice, maxPrice: action.data.maxPrice, text: action.data.text, index: 0, type: action.data.type, searchType: action.data.searchType, list: action.data.list, loading: false, id: action.data.id }],
         options: action.data.options,
         hideKeyboard: action.data.hideKeyboard
       };

@@ -41,7 +41,14 @@ class Carousel extends Component {
   }
   
   renderArray(items) {
-    return items.map((item, index) => {
+    return items.filter((item) => {
+      console.log(this.props);
+      
+      // return this.getPrice(item) <= Number(this.props.price.replace(/[^0-9\.]+/g,''));
+      
+      return this.getPrice(item) <= Number(this.props.maxPrice.replace(/[^0-9\.]+/g,'')) && this.getPrice(item) >= Number(this.props.minPrice.replace(/[^0-9\.]+/g,''));
+      
+    }).map((item, index) => {
       const description = item['prd:DescriptionList']['prd:Description']['#text'];
       const price = this.getPrice(item);
       return (
@@ -71,7 +78,6 @@ class Carousel extends Component {
   }
   
   render() {
-    
     return (
       <ScrollView contentContainerStyle={styles.carousel} style={styles.carouselInner} horizontal={true} snapToAlignment="start" automaticallyAdjustContentInsets={false}>
         {this.renderArray(this.props.items)}

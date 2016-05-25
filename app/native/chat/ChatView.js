@@ -313,12 +313,53 @@ class ChatView extends Component {
   }
 
   renderArray(data) {
+    
+    const arrayOfCategoriesNotToShow = [
+      'Fancy dress costumes',
+      'Action figures and playsets',
+      'Childrens books',
+      'Craft sets and accessories',
+      'Ladies\' fragrance',
+      'Ladies\' necklaces',
+      'Make-up and skin care',
+      'Fancy dress',
+      'Ornaments',
+      'Family DVDs',
+      'Bath and body',
+      'Art sets and accessories',
+      'Novelty lights',
+      'Novelty lighting',
+      'Kids DVDs',
+      'Arts, crafts and creative toys',
+      'Clothing/Fancy dress/Fancy dress costumes',
+      'Gifts/Fancy dress/Fancy dress costumes',
+      'Gift wrap, gift bags and gift boxes',
+      'Limited stock Health and beauty',
+      'Gifts/Clearance gifts/Gadget and novelty gifts',
+      'Home and garden/Home furnishings/Candles, ornaments and vases/Ornaments',
+      'Party food makers',
+      'Limited stock Gifts',
+      'Gifts/Home and garden gifts/Ornaments',
+      'Limited stock Clothing',
+      'Gifts/Gadget and novelty gifts',
+      'Technology/CDs, DVDs and blu-rays/CDs/CDs',
+      'Gift collections',
+      'Character gifts',
+      'Mini fridges',
+      'Drones',
+      'Docking stations and speakers',
+      'Clothing/Clearance Clothing/Fancy dress'
+    ];
+    
+    for (let i = 0; i < arrayOfCategoriesNotToShow.length; i++) {
+      delete data[arrayOfCategoriesNotToShow[i]];
+    }
+    
     return data.map((item, index) => {
-      if (index < 5) {
+      if ((arrayOfCategoriesNotToShow.indexOf(item['sch:Name']) === -1) && index < 6) {
         const categoryName = item['sch:Name'];
-        const categoryId = item['sch:Parameter'];
         return (
-          <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName, categoryId)}>
+          <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName)}>
             <Text style={styles.categoryText}>{categoryName}</Text>
           </TouchableHighlight>
         );
@@ -369,9 +410,13 @@ class ChatView extends Component {
   }
 
   renderRow(rowData = {}) {
-    console.log(rowData);
-    
     const array = rowData.list || [];
+    const categoryStrings = [
+      'Cool! Which of these categories suits your Dad the best?',
+      'Cool! Tap on any of the categories below.',
+      'Great! I’m sure we’ll be able to find him something he’ll love. Which category fits him best?'
+    ];
+    const categoryString = Math.floor(Math.random() * categoryStrings.length);
 
     return (
       <View>
@@ -380,14 +425,14 @@ class ChatView extends Component {
         : null }
         
         { rowData.searchType === 'search' ?
-          <Carousel navigator={this.props.navigator} items={array} />
+          <Carousel minPrice={rowData.minPrice} maxPrice={rowData.maxPrice} navigator={this.props.navigator} items={array} />
         :
           <View style={[rowData.type === 'mine' ? styles.liMe : styles.liYou, {marginLeft: 35}]}>
             { rowData.text ?
               <View style={rowData.type === 'mine' ? styles.liMeText : styles.liYouText}><Text style={styles.text}>{rowData.text}</Text></View>
             :
               <View>
-                <View style={styles.categoryListTitle}><Text style={styles.text}>Nice. So what kind of gift are you after?</Text></View>
+                <View style={styles.categoryListTitle}><Text style={styles.text}>{categoryStrings[categoryString]}</Text></View>
                 <View style={styles.border}>
                   {this.renderArray(array)}
                 </View>

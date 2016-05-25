@@ -25,7 +25,9 @@ export const styles = StyleSheet.create({
   },
   categoryText: {
     color: '#00aa50',
-    fontSize: 18
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 30
   },
   categoryTextClicked: {
     color: 'white',
@@ -39,6 +41,7 @@ export const styles = StyleSheet.create({
   },
   category: {
     padding: 15,
+    paddingTop: 5,
     borderBottomWidth: 1,
     alignSelf: 'stretch',
     borderColor: '#00aa50',
