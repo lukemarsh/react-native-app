@@ -14,12 +14,12 @@ import {
 import { styles } from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMessage, startSequence, showProductCarousel } from '../../chat/actions';
+import { fetchMessage, startSequence, showProductCarousel } from '../../chat/otherActions';
 import Carousel from './carousel/Carousel';
 import deepEqual from 'deep-equal';
 import Spinner from 'react-native-spinkit';
 
-class ChatView extends Component {
+class OtherChatView extends Component {
   constructor(props) {
     super(props);
     
@@ -103,12 +103,12 @@ class ChatView extends Component {
   
   componentDidMount() {
     this.scrollResponder = this.refs.list.getScrollResponder();
-    if (this.props.messages.length === 0) {
+    if (this.props.otherMessages.length === 0) {
       this.props.startSequence();
     }
     
-    if (this.props.messages.length > 0) {
-      this.setMessages(this.props.messages);
+    if (this.props.otherMessages.length > 0) {
+      this.setMessages(this.props.otherMessages);
     }
   }
   
@@ -121,23 +121,23 @@ class ChatView extends Component {
       }
     }
     
-    if (deepEqual(nextProps.messages, this.props.messages) === false) {
+    if (deepEqual(nextProps.otherMessages, this.props.otherMessages) === false) {
       let isAppended = null;
-      if (nextProps.messages.length === this.props.messages.length) {
+      if (nextProps.otherMessages.length === this.props.otherMessages.length) {
         // we assume that only a status has been changed
         if (this.isLastMessageVisible()) {
           isAppended = true; // will scroll to bottom
         } else {
           isAppended = null;
         }
-      } else if (deepEqual(nextProps.messages[nextProps.messages.length - 1], this.props.messages[this.props.messages.length - 1]) === false) {
+      } else if (deepEqual(nextProps.otherMessages[nextProps.otherMessages.length - 1], this.props.otherMessages[this.props.otherMessages.length - 1]) === false) {
         // we assume the messages were appended
         isAppended = true;
       } else {
         // we assume the messages were prepended
         isAppended = false;
       }
-      this.setMessages(nextProps.messages, isAppended);
+      this.setMessages(nextProps.otherMessages, isAppended);
     }
     
     let textInputHeight = 44;
@@ -259,8 +259,8 @@ class ChatView extends Component {
   }
   
   getLastMessageid() {
-    if (this.props.messages.length > 0) {
-      return this.props.messages[this.props.messages.length - 1].id;
+    if (this.props.otherMessages.length > 0) {
+      return this.props.otherMessages[this.props.otherMessages.length - 1].id;
     }
     return null;
   }
@@ -315,10 +315,9 @@ class ChatView extends Component {
   renderArray(data) {
     return data.map((item, index) => {
       if (index < 5) {
-        const categoryName = item['sch:Name'];
-        const categoryId = item['sch:Parameter'];
+        const categoryName = item['prd:DescriptionList']['prd:Description']['#text'];
         return (
-          <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName, categoryId)}>
+          <TouchableHighlight key={index} style={styles.category} underlayColor='#fff' activeOpacity={0.4} onPress={() => this.selectCategory(categoryName)}>
             <Text style={styles.categoryText}>{categoryName}</Text>
           </TouchableHighlight>
         );
@@ -369,8 +368,6 @@ class ChatView extends Component {
   }
 
   renderRow(rowData = {}) {
-    console.log(rowData);
-    
     const array = rowData.list || [];
 
     return (
@@ -416,8 +413,8 @@ class ChatView extends Component {
           <ListView
             ref="list"
             style={this.styles.listView}
-            initialListSize={this.props.messages.length}
-            pageSize={this.props.messages.length}
+            initialListSize={this.props.otherMessages.length}
+            pageSize={this.props.otherMessages.length}
             dataSource={this.state.dataSource}
             onLayout={this.onLayout}
             automaticallyAdjustContentInsets={false}
@@ -463,9 +460,9 @@ class ChatView extends Component {
 
 const stateToProps = (state) => {
   return {
-    messages: state.chat.messages,
+    otherMessages: state.otherChat.otherMessages,
     options: state.chat.options,
-    isTyping: state.chat.isTyping
+    isOtherTyping: state.otherChat.isOtherTyping
   };
 };
 
@@ -477,7 +474,7 @@ const dispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-ChatView.defaultProps = {
+OtherChatView.defaultProps = {
   maxHeight: Dimensions.get('window').height,
   keyboardDismissMode: 'interactive',
   keyboardShouldPersistTaps: false,
@@ -493,4 +490,4 @@ ChatView.defaultProps = {
   blurOnSubmit: false
 };
 
-export default connect(stateToProps, dispatchToProps)(ChatView);
+export default connect(stateToProps, dispatchToProps)(OtherChatView);

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:TalksApp.xcodeproj">
+      location = "group:/Users/luke/Sites/TalksApp/ios/ACE.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

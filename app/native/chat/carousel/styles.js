@@ -5,7 +5,7 @@ import {
 export const styles = StyleSheet.create({
   carousel: {
     padding: 6,
-    paddingLeft: 31
+    paddingLeft: 41
   },
   images: {
     width: 130,

@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { globalStyles } from '../styles/globals';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ChatView from '../chat/ChatView';
+import OtherChatView from '../chat/OtherChatView';
 
 var NavigationBarRouteMapper = isTyping => ({
 
@@ -31,7 +32,16 @@ var NavigationBarRouteMapper = isTyping => ({
   },
 
   RightButton: function(route, navigator, index, navState) {
-    return null;
+    return (
+      <TouchableOpacity
+        onPress={() => navigator.push({
+          title: 'test',
+          component: OtherChatView
+        })}
+        style={globalStyles.navBarRightButton}>
+        <Icon name='cog' size={20} color='#fff' style={{paddingRight: 10}} />
+      </TouchableOpacity>
+    );
   },
 
   Title: function(route, navigator, index, navState) {

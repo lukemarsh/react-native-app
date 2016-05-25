@@ -1,15 +1,15 @@
 import request from 'superagent';
-// delete GLOBAL.XMLHttpRequest;
+delete GLOBAL.XMLHttpRequest;
 
 const baseUrl = 'https://api.api.ai/v1/';
-const accessToken = '848e6554193a4aa6b88bbb7689c7be58';
+const accessToken = '52f4c11bce2940fda1007895866a3765';
 const contentType = 'application/json; charset=utf-8';
 const authHeader = 'Bearer ' + accessToken;
 
-export const MESSAGE_RECEIVED = 'MESSAGE_RECEIVED';
+export const OTHER_MESSAGE_RECEIVED = 'OTHER_MESSAGE_RECEIVED';
 export const MESSAGE_LOADING = 'MESSAGE_LOADING';
 
-export const messageReceived = (data) => ({type: MESSAGE_RECEIVED, data});
+export const messageReceived = (data) => ({type: OTHER_MESSAGE_RECEIVED, data});
 export const messageLoading = () => ({type: MESSAGE_LOADING});
 
 export const receiveMessage = (message) => (dispatch) => {
@@ -48,17 +48,15 @@ export const fetchMessage = (data) => (dispatch) => {
         timezone: 'Europe/London'
       })
       .end((error, response) => {
-        console.log(response);
+        console.log(response, error);
         
         resolve();
         const type = response.body.result.parameters;
         const result = response.body.result.fulfillment;
         
         if (result.data) {
-          console.log(response);
-          
           dispatch(receiveMessage({
-            list: type.type === 'category' ? result.data['sch:Options']['sch:RefinementList']['sch:Refinement']['sch:OptionList']['sch:Option'] : result.data['prd:ProductList']['prd:Product'],
+            list: result.data,
             type: 'theirs',
             searchType: type.type
           }));
