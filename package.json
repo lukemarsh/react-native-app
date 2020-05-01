@@ -10,7 +10,9 @@
     "android-dev-bundle": "react-native bundle --entry-file index.android.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle",
     "web-bundle": "webpack --config web/webpack/web.prod.config.js --progress --colors",
     "web-dev": "webpack-dev-server --content-base web/public/ --config web/webpack/web.dev.config.js --port 3001 --host 0.0.0.0 --inline --hot --colors",
-    "clear-cache": "gulp clear-cache"
+    "clear-cache": "gulp clear-cache",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel": "^6.5.2",
@@ -25,7 +27,8 @@
     "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.0.1"
+    "redux-thunk": "^2.0.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -43,5 +46,6 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.10.0"
-  }
+  },
+  "snyk": true
 }
